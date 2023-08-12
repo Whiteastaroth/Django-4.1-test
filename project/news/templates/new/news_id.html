@@ -1,0 +1,15 @@
+{% extends 'new/default.html'%}
+{% load custom_filters %}
+
+{% block title %}{{ record.title|censorship}}{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>{{ record.title|censorship }}</h1>
+        <p align="left">дата публикации     <b>{{ record.data|date:'d.M.Y'}}</b></p>
+        <p>{{ record.text|censorship }}</p>
+        <a href="{% url 'delete' record.id %}" class="btn btn-danger">Удалить</a>
+        <a href="{% url 'updata' record.id %}" class="btn btn-info">Редактировать</a>
+
+    </div>
+{% endblock %}
