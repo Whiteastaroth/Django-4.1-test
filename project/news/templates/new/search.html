@@ -16,13 +16,13 @@
 
            <input type="submit" value="Найти" />
         </form>
-        {% if record %}
-            {% for el in record %}
+        {% if new %}
+            {% for el in new %}
                 <div class="alert alert-warning">
                     <h3>{{ el.title|censorship }}</h3>
                     <p>{{ el.text|censorship |truncatechars:20 }}</p>
                     <p>{{ el.date|date:'d.M.Y' }}</p>
-                    <a href="{% url 'news_id' el.id %}" class="btn btn-warning">Читать полностью</a>
+                    <a href="{% url 'news_id' el.id %}" class="btn btn-warning">Читать дальше</a>
                 </div>
             {% endfor %}
         {% else %}

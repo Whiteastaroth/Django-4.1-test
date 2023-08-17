@@ -19,6 +19,8 @@ class SearchList(ListView):
     context_object_name = 'new'
     paginate_by = 10
 
+
+
     def get_filter(self):
         return NewFilter(self.request.GET, queryset=super().get_queryset())
 
@@ -30,7 +32,7 @@ class SearchList(ListView):
 
 class Newid(DetailView):
     model = New
-    template_name = 'new_id.html'
+    template_name = 'new/news_id.html'
     context_object_name = 'new'
 
 class NewCreate(CreateView):
@@ -46,7 +48,7 @@ class NewUpdate(UpdateView):
 
 class NewDelete(DeleteView):
     model = New
-    template_name = 'news_delete.html'
+    template_name = 'new/news_delete.html'
     success_url = '/news/'
 
 
@@ -58,7 +60,7 @@ def create_New(request):
         form = NewForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('default')
+        return redirect('index')
     form = NewForm()
     data = {'form': form, 'error': error}
     return render(request, 'new/create.html',  data)

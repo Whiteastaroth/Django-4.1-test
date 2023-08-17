@@ -4,7 +4,7 @@ class New(models.Model):
     title = models.CharField(max_length=50)
     text = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    category = models.SlugField(max_length=128, unique=True)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
 
 
 
