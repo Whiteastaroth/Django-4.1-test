@@ -1,15 +1,28 @@
-from django_filters import FilterSet, ModelChoiceFilter, CharFilter, DateFilter
-from django.forms import DateInput
-from .models import Category
+import django_filters
+from django import forms
+from .models import New
+
+CATEGORIES_CHOICES = [
+    ('uncos', 'Новости'),
+    ('articles', 'Статьи'),
+]
 
 
-class NewFilter(FilterSet):
-    slug = ModelChoiceFilter(field_name= 'category__title',
-                             queryset = Category.objects.all(),
-                             label = 'Категория',
-                             empty_label = 'Любой'
-                             )
+class NewFilter(django_filters.FilterSet):
+    title = django_filters.CharFilter(
+        lookup_expr='icontains',
+        label='Поиск по названию'
+    )
+    category = django_filters.ChoiceFilter(
+        choices=CATEGORIES_CHOICES,
+        label='Поиск по категории',
+        empty_label = 'Любой'
+    )
+    data_pub = django_filters.DateFilter(
+        widget=forms.TextInput(attrs={'type': 'date'}),
+        label='Поиск по дате'
+    )
 
-    title = CharFilter(lookup_expr='contains',)
-
-    date = DateFilter(field_name='data', lookup_expr='gt', label='Дата', widget=DateInput(attrs={'type': 'date'},))
+    class Meta:
+        model = New
+        fields = ['title', 'category', 'data_pub']
