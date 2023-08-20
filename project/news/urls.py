@@ -1,36 +1,16 @@
 from django.urls import path
-from .views import (
-    NewsListView,
-    NewDetailView,
-    UncosNewsListView,
-    ArticlesNewsListView,
-    NewsSearchView,
-    news_search,
-    subscriptions,
-
-    UncosCreateView,
-    UncosUpdateView,
-    UncosDeleteView,
-    ArticlesCreateView,
-    ArticlesUpdateView,
-    ArticlesDeleteView,
-)
-from accounts.views import SignUp
+from .views import NewList, Newid, create_New, NewUpdate, NewDelete, SearchList
 
 urlpatterns = [
-    path('', NewsListView.as_view(template_name='index.html'), name='index'),
-    path('<int:pk>/', NewDetailView.as_view(), name='detail'),
-    path('uncos/', UncosNewsListView.as_view(), name='uncos'),
-    path('articles/', ArticlesNewsListView.as_view(), name='articles'),
-    path('news/', NewsSearchView.as_view(), name='news'),
-    path('search/', news_search, name='news_search'),
-    path('accounts/signup/', SignUp.as_view(), name='signup'),
-    path('uncos/create/', UncosCreateView.as_view(), name='uncos_create'),
-    path('uncos/<int:pk>/edit/', UncosUpdateView.as_view(), name='uncos_edit'),
-    path('uncos/<int:pk>/delete/', UncosDeleteView.as_view(), name='uncos_delete'),
-    path('articles/create/', ArticlesCreateView.as_view(), name='articles_create'),
-    path('articles/<int:pk>/edit/', ArticlesUpdateView.as_view(), name='articles_edit'),
-    path('articles/<int:pk>/delete/', ArticlesDeleteView.as_view(), name='articles_delete'),
-    path('subscriptions/', subscriptions, name='subscriptions'),
-]
 
+    path('news_list/', NewList.as_view(), name= 'index'),
+    path('new/<int:pk>', Newid.as_view(), name='news_id'),                 # переход по динамическим страницам
+
+
+    path('create/', create_New, name= 'create'),                           # переход на страницу добавления записи
+    path('<int:pk>/updata', NewUpdate.as_view(), name='updata'),
+    path('<int:pk>/delete/', NewDelete.as_view(),name = 'delete'),
+    path('search/', SearchList.as_view(), name='search'),
+
+
+]
